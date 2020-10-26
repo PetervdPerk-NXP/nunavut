@@ -180,8 +180,16 @@ out_buffer, buf_size_bytes, offset + *out_size_bits, {{ ref }}{{ field_name | id
 {%- macro _serialize_int(type, name, ref) -%}
     {%- if type is UnsignedIntegerType -%}
     const {{typename_error_type}} rc = nunavutSetUxx({{ nunavut_set(name, ref) }}, {{ type.bit_length }});
+    if (rc < 0)
+    {
+        return rc;
+    }
     {%- elif type is SignedIntegerType -%}
     const {{typename_error_type}} rc = nunavutSetIxx({{ nunavut_set(name, ref) }}, {{ type.bit_length }});
+    if (rc < 0)
+    {
+        return rc;
+    }
     {%- endif %}
 {%- endmacro %}
 
