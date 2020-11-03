@@ -51,7 +51,7 @@ static void testArrayOverflow(void)
     typename_unsigned_bit_length bit_size;
 
     uavcan_register_Name_1_0_init(&subject);
-    subject.name_length = 51;
+    subject.name_length = 257;
     int32_t rc = uavcan_register_Name_1_0_serialize(&subject, 0, buffer, sizeof(buffer), &bit_size);
 
     TEST_ASSERT_EQUAL_INT32(-NUNAVUT_ERR_INVALID_LEN, rc);

@@ -33,7 +33,7 @@ out_buffer, buf_size_bytes, offset + *out_size_bits, {{ ref }}{{ field_name | id
     {%- elif type is ArrayType -%}
     {
         const size_t current_offset_bytes = ((offset + *out_size_bits) >> 3);
-        const size_t copy_length_bytes = {{ type.capacity }} * {{ type.element_type.bit_length_set | max / 4}};
+        const size_t copy_length_bytes = {{ type.capacity }} * {{ type.element_type.bit_length_set | max // 8 }};
         if (current_offset_bytes + copy_length_bytes > buf_size_bytes)
         {
             return -NUNAVUT_ERR_BUF_OVERFLOW;
