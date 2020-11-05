@@ -58,6 +58,12 @@ in_buffer, buf_size_bytes, offset + *in_size_bits, {{ bit_length }}
     {{ _deserialize_any(f.data_type, f.name, ref, offset) }}
     // End Structure: {{ f.data_type }}
     {%- endfor -%}
+    {%- elif type is DelimitedType -%}
+    {%- for f, offset in type.iterate_fields_with_offsets(offset) %}
+    // Begin Structure: {{ f.data_type }}
+    {{ _deserialize_any(f.data_type, f.name, ref, offset) }}
+    // End Structure: {{ f.data_type }}
+    {%- endfor -%}
     {%- elif type is UnionType %}
     // Begin Union: {{ type }}
     {{ _deserialize_int(type.tag_field_type, '_tag_', ref) }}
