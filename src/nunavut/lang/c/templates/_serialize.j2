@@ -70,7 +70,6 @@ out_buffer, buf_size_bytes, offset + *out_size_bits, {{ ref }}{{ field_name | id
     (ServiceType is handled further up, as seperate Request/Response instances)
 #}
 {%- macro _serialize_composite(type, ref, base_offset) -%}
-// Peter was hier
     {%- if type is StructureType -%}
     {%- for f, offset in type.iterate_fields_with_offsets(base_offset) %}
     // Begin Structure: {{ f.data_type }}
